@@ -1,60 +1,60 @@
 - git:
-  local-name: rpi_abb_irb6640_180_255_moveit_config
-  uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_moveit_config.git
+    local-name: rpi_abb_irb6640_180_255_moveit_config
+    uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_moveit_config.git
 
 - git:
-  local-name: rpi_abb_irb6640_180_255_support
-  uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_support.git
+    local-name: rpi_abb_irb6640_180_255_support
+    uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_support.git
 
 - git:
-  local-name: rpi_abb_irc5
-  uri: git@github.com:rpiRobotics/rpi_abb_irc5.git
+    local-name: rpi_abb_irc5
+    uri: git@github.com:rpiRobotics/rpi_abb_irc5.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing_abb_egm_controller
-  uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_abb_egm_controller.git
+    local-name: rpi_arm_composites_manufacturing_abb_egm_controller
+    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_abb_egm_controller.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing_process
-  uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_process.git
+    local-name: rpi_arm_composites_manufacturing_process
+    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_process.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing_testbed
-  uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_testbed.git
+    local-name: rpi_arm_composites_manufacturing_testbed
+    uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_testbed.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing_testbed_moveit_config
-  uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_moveit_config.git
+    local-name: rpi_arm_composites_manufacturing_testbed_moveit_config
+    uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_moveit_config.git
 
 - git:
-  local-name: rpi_ati_net_ft
-  uri: git@github.com:rpiRobotics/rpi_ati_net_ft.git
+    local-name: rpi_ati_net_ft
+    uri: git@github.com:rpiRobotics/rpi_ati_net_ft.git
 
 - git:
-  local-name: rpi_general_robotics_toolbox_py
-  uri: git@github.com:rpiRobotics/rpi_general_robotics_toolbox.git
+    local-name: rpi_general_robotics_toolbox_py
+    uri: git@github.com:rpiRobotics/rpi_general_robotics_toolbox.git
 
 - git:
-  local-name: rviz_camera_stream
-  uri: git@github.com:lucasw/rviz_camera_stream.git
+    local-name: rviz_camera_stream
+    uri: git@github.com:lucasw/rviz_camera_stream.git
 
 - git:
-  local-name: tesseract
-  uri: git@github.com:ros-industrial-consortium/tesseract.git
+    local-name: tesseract
+    uri: git@github.com:ros-industrial-consortium/tesseract.git
 
 - git:
-  local-name: trajopt_ros
-  uri: git@github.com:ros-industrial-consortium/trajopt_ros.git
+    local-name: trajopt_ros
+    uri: git@github.com:ros-industrial-consortium/trajopt_ros.git
 
 - git:
-  local-name: floating_transform_publisher
-  uri: git@github.com:rpiRobotics/floating_transform_publisher.git
+    local-name: floating_transform_publisher
+    uri: git@github.com:rpiRobotics/floating_transform_publisher.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing_gui
-  uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_gui.git
+    local-name: rpi_arm_composites_manufacturing_gui
+    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_gui.git
 
 - git:
-  local-name: rpi_arm_composites_manufacturing
-  uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing.git
+    local-name: rpi_arm_composites_manufacturing
+    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing.git
   
