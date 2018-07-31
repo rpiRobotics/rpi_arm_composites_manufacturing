@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Master launch file for RPI ARM composites manufacturing quick start project -->
+
+  <arg name="joy_dev" default="/dev/input/js0"/>
+  <arg name="abb_irc5_uri" default="http://192.168.125.1/"/>
+  <arg name="abb_irc5_rapid_auto_stop" default="true"/>
+
+  <arg name="sim" default="false"/>
+
+  <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
+  <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
+  <param name="move_group/trajectory_execution/controller_connection_timeout" value="120"/>
+  
+
+  <arg name="disable_moveit" default="false"/>
+  <include file="$(find rpi_arm_composites_manufacturing_testbed_moveit_config)/launch/moveit_planning_execution.launch" unless="$(arg disable_moveit)">
+    <arg name="start_interface" value="false"/>
+    <arg name="planning_pipeline" value="ompl"/>
+  </include>
+
+  <arg name="disable_kinematic_controller" default="false"/>
+  <include file="$(find rpi_arm_composites_manufacturing_abb_egm_controller)/launch/arm_composites_controller.launch" unless="$(arg disable_kinematic_controller)">
+    <arg name="joy_dev" value="$(arg joy_dev)"/>
+    <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
+    <arg name="abb_irc5_rapid_auto_stop" value="$(arg abb_irc5_rapid_auto_stop)"/>
+  </include>  
+    
+  <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras.launch" if="$(arg sim)"/>
+  
+  <node name="overhead_image_view" pkg="image_view" type="image_view" args="image:=/overhead_camera/image"/>
+ 
+  <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/load_payloads.launch"/>
+
+  <!-- TODO: use a package for vision server instead of this script -->
+  <arg name="disable_vision_server" default="false"/>
+  <node name="ptgrey_vision_server" pkg="Vision_MoveIt_wason" type="ptgrey_vision_server" unless="$(arg disable_vision_server)"/>
+  
+  <arg name="disable_process_controller_server" default="false"/>
+  <node name="process_controller_server" pkg="rpi_arm_composites_manufacturing_process" type="process_controller_server" unless="$(arg disable_process_controller_server)">
+    <param name="disable_ft" value="$(arg sim)"/>    
+  </node>
+ 
+  <!-- TODO: launch GUI -->
+
+</launch>
