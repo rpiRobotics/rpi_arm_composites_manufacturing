@@ -24,7 +24,7 @@
 
 - git:
     local-name: rpi_arm_composites_manufacturing_testbed_moveit_config
-    uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_moveit_config.git
+    uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_testbed_moveit_config.git
 
 - git:
     local-name: rpi_ati_net_ft
@@ -32,7 +32,7 @@
 
 - git:
     local-name: rpi_general_robotics_toolbox_py
-    uri: git@github.com:rpiRobotics/rpi_general_robotics_toolbox.git
+    uri: git@github.com:rpiRobotics/rpi_general_robotics_toolbox_py.git
 
 - git:
     local-name: rviz_camera_stream
