@@ -56,7 +56,6 @@
   <depend>rpi_arm_composites_manufacturing_process</depend>
   <depend>rpi_arm_composites_manufacturing_testbed</depend>
   <depend>rpi_arm_composites_manufacturing_testbed_moveit_config</depend>
-  <depend>rpi_arm_composites_manufacturing_gui</depend>
   <depend>rpi_ati_net_ft</depend>
   <depend>rpi_general_robotics_toolbox_py</depend>
   <depend>rviz_camera_stream</depend>
