@@ -15,6 +15,12 @@
   <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
   <param name="move_group/trajectory_execution/controller_connection_timeout" value="120"/>
   
+<arg name="disable_joy" default="false"/>
+  <node respawn="true" pkg="joy" type="joy_node" name="joy" unless="$(arg disable_joy)">
+    <param name="dev" type="string" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="20" />
+  </node>
 
   <arg name="disable_moveit" default="false"/>
   <include file="$(find rpi_arm_composites_manufacturing_testbed_moveit_config)/launch/moveit_planning_execution.launch" unless="$(arg disable_moveit)">
@@ -22,14 +28,20 @@
     <arg name="planning_pipeline" value="ompl"/>
   </include>
 
+  <rosparam param="controller_joint_names" subst_value="True">["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]</rosparam>
+
   <arg name="disable_kinematic_controller" default="false"/>
-  <include file="$(find rpi_arm_composites_manufacturing_abb_egm_controller)/launch/arm_composites_controller.launch" unless="$(arg disable_kinematic_controller)">
-    <arg name="joy_dev" value="$(arg joy_dev)"/>
-    <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
-    <arg name="netft_host" value="$(arg netft_host)"/>
-    <arg name="abb_irc5_rapid_auto_stop" value="$(arg abb_irc5_rapid_auto_stop)"/>
+  <include file="$(find safe_kinematic_controller_abb_irc5_egm)/launch/safe_kinematic_controller_abb_irc5_egm.launch" unless="$(arg disable_kinematic_controller)">
+    <arg name="netft_host" value="$(arg netft_host)"/>    
   </include>  
     
+  <arg name="disable_rapid_server" default="false"/>
+  <include file="$(find rpi_abb_irc5)/launch/abb_irc5_rapid_driver.launch" unless="$(arg disable_rapid_server)">
+    <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
+  </include> 
+
+  <node pkg="rosservice" type="rosservice" name="start_rapid" args="call --wait rapid/start True forever" unless="$(arg disable_rapid_server)"/> 
+
   <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras.launch" if="$(arg sim)"/>
   <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras_params.launch" if="$(arg sim)"/>
   
