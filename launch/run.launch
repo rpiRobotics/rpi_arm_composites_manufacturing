@@ -9,6 +9,9 @@
   <arg name="netft_host" default="192.168.1.2"/>
   <arg name="abb_irc5_rapid_auto_stop" default="true"/>
 
+  <node name="record" pkg="rosbag" type="record" args="-a"/>
+
+
   <arg name="sim" default="false"/>
 
   <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
