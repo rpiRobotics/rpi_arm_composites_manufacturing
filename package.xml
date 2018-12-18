@@ -63,6 +63,7 @@
   <depend>trajopt_ros</depend>
   <depend>floating_transform_publisher</depend>
   <depend>rpi_arm_composites_manufacturing_gui</depend>
+  <depend>tesseract_monitoring</depend>
   <!-- TODO: add camera and tracking software package depend -->   
 
   <!-- The export tag contains other, unspecified, tags -->

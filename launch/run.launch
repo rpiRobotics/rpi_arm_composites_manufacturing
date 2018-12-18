@@ -62,6 +62,16 @@
   <node name="industrial_payload_manager" pkg="industrial_payload_manager" type="industrial_payload_manager" unless="$(arg disable_industrial_payload_manager)">        
   </node> 
 
+  <arg name="disable_collision_monitor" default="false"/>
+  <node pkg="tesseract_monitoring" type="tesseract_monitoring_contacts_node" name="tesseract_monitoring_contacts" unless="$(arg disable_collision_monitor)">
+    <param name="robot_description" type="string" value="robot_description"/>
+    <param name="plugin" type="string" value="tesseract_collision/BulletDiscreteBVHManager"/>
+    <param name="contact_distance" value="0.5"/>
+    <param name="monitor_links" value=""/>
+    <param name="contact_test_type" value="2"/>
+    <param name="publish_environment" value="true"/>
+    <remap from="/tesseract_monitoring_contacts/tesseract_diff" to="tesseract_diff"/>
+  </node>
 
   <!-- TODO: launch GUI -->
 
