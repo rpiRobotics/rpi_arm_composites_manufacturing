@@ -5,9 +5,12 @@
   <!-- Master launch file for RPI ARM composites manufacturing quick start project -->
 
   <arg name="joy_dev" default="/dev/input/js0"/>
-  <arg name="abb_irc5_uri" default="http://192.168.125.1/"/>
-  <arg name="netft_host" default=""/>
+  <arg name="abb_irc5_uri" default="http://192.168.1.1/"/>
+  <arg name="netft_host" default="192.168.1.2"/>
   <arg name="abb_irc5_rapid_auto_stop" default="true"/>
+
+  <node name="record" pkg="rosbag" type="record" args="-a"/>
+
 
   <arg name="sim" default="false"/>
 
@@ -50,6 +53,15 @@
   <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/load_payloads.launch"/>
 
   <!-- TODO: use a package for vision server instead of this script -->
+
+  <group unless="$(arg sim)">
+      <node name="pyspin_overhead_service" pkg="pyspin_wrapper" type="pyspin_overhead_service.py" respawn="false"/>
+	  <node name="pyspin_gripper_proximal_service" pkg="pyspin_wrapper" type="pyspin_gripper_proximal_service.py" respawn="false"/>
+	  <node name="pyspin_gripper_distal_service" pkg="pyspin_wrapper" type="pyspin_gripper_distal_service.py" respawn="false"/>
+      <node pkg="rostopic" type="rostopic" name="overhead_camera_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/overhead_camera_sim_camera_info.yaml -l /overhead_camera/camera_info sensor_msgs/CameraInfo"/>
+      <!--node pkg="rostopic" type="rostopic" name="gripper_camera_1_camera_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/gripper_camera_1_camera_info.yaml -l /gripper_camera_1/camera_info sensor_msgs/CameraInfo"/>
+      <node pkg="rostopic" type="rostopic" name="gripper_camera_2_camera_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/gripper_camera_2_camera_info.yaml -l /gripper_camera_2/camera_info sensor_msgs/CameraInfo"/-->
+  </group>
   <arg name="disable_vision_server" default="false"/>
   <node name="ptgrey_vision_server" pkg="Vision_MoveIt_wason" type="ptgrey_vision_server" unless="$(arg disable_vision_server)"/>
   
@@ -58,6 +70,7 @@
 	<!-- Use simulated force sensor! -->
     <!-- <param name="disable_ft" value="$(arg sim)"/> -->
   </node>
+
   
   <arg name="disable_industrial_payload_manager" default="false"/>
   <node name="industrial_payload_manager" pkg="industrial_payload_manager" type="industrial_payload_manager" unless="$(arg disable_industrial_payload_manager)">        
@@ -73,6 +86,9 @@
     <param name="publish_environment" value="true"/>
     <remap from="/tesseract_monitoring_contacts/tesseract_diff" to="tesseract_diff"/>
   </node>
+
+ <arg name="disable_gui" default="false"/>
+ <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui" unless="$(arg disable_gui)"/>
 
   <!-- TODO: launch GUI -->
 
