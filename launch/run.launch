@@ -9,7 +9,7 @@
   <arg name="netft_host" default="192.168.1.2"/>
   <arg name="abb_irc5_rapid_auto_stop" default="true"/>
 
-  <node name="record" pkg="rosbag" type="record" args="-a"/>
+  <!--<node name="record" pkg="rosbag" type="record" args="-a"/>-->
 
 
   <arg name="sim" default="false"/>
@@ -43,10 +43,13 @@
     <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
   </include> 
 
-  <node pkg="rosservice" type="rosservice" name="start_rapid" args="call --wait rapid/start True forever" unless="$(arg disable_rapid_server)"/> 
+  <!--<node pkg="rosservice" type="rosservice" name="start_rapid" args="call -wait rapid/start True forever" unless="$(arg disable_rapid_server)"/>-->
 
+  <arg name="disable_rviz_sim_cameras" default="false"/>
+  <group unless="$(arg disable_rviz_sim_cameras)">
   <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras.launch" if="$(arg sim)"/>
-  <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras_params.launch" if="$(arg sim)"/>
+  <!--<include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/rviz_sim_cameras_params.launch" if="$(arg sim)"/>-->
+  </group>
   
   <node name="overhead_image_view" pkg="image_view" type="image_view" args="image:=/overhead_camera/image"/>
  
@@ -83,7 +86,7 @@
     <param name="contact_distance" value="0.5"/>
     <param name="monitor_links" value=""/>
     <param name="contact_test_type" value="2"/>
-    <param name="publish_environment" value="true"/>
+    <param name="publish_environment" value="false"/>
     <remap from="/tesseract_monitoring_contacts/tesseract_diff" to="tesseract_diff"/>
   </node>
 
@@ -95,5 +98,7 @@
   <node name="floating_transform_publisher" pkg="floating_transform_publisher" type="floating_transform_publisher"/>
 
   <node name="force_sensor_sim" pkg="rpi_arm_composites_manufacturing_testbed" type="force_sensor_sim_node" if="$(arg sim)"/>
+
+  <!--<node name="force_sensor_sim" pkg="rpi_arm_composites_manufacturing_testbed" type="force_sensor_robotstudio_node" if="$(arg sim)"/>-->
 
 </launch>
