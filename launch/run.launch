@@ -13,6 +13,8 @@
 
 
   <arg name="sim" default="false"/>
+  <arg name="use_robot_studio" default="false"/>
+  <arg name="robot_studio_plugin_url" default=""/>
   
   <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
   <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
@@ -34,14 +36,26 @@
   <rosparam param="controller_joint_names" subst_value="True">["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]</rosparam>
 
   <arg name="disable_kinematic_controller" default="false"/>
-  <include file="$(find safe_kinematic_controller_abb_irc5_egm)/launch/safe_kinematic_controller_abb_irc5_egm.launch" unless="$(arg disable_kinematic_controller)">
-    <arg name="netft_host" value="$(arg netft_host)"/>    
-  </include>  
+  <group unless="$(arg disable_kinematic_controller)">
+    <include file="$(find safe_kinematic_controller_abb_irc5_egm)/launch/safe_kinematic_controller_abb_irc5_egm.launch" if="$(eval (not arg('sim') or arg('use_robot_studio')))">
+      <arg name="netft_host" value="$(arg netft_host)"/>    
+    </include>
+    <group unless="$(eval (not arg('sim') or arg('use_robot_studio')))">
+      <rosparam param="controller_joint_names" subst_value="True">["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]</rosparam>
+      <node name="fake_robot" pkg="safe_kinematic_controller_fake_robot" type="fake_robot_ros" required="true" output="screen">
+        <param name="publish_frequency" value="50"/>
+      </node>
+      <node name="safe_kinematic_controller" pkg="safe_kinematic_controller" type="safe_kinematic_controller_ros" required="true" output="screen"/>
+    </group>
+  </group>
     
   <arg name="disable_rapid_server" default="false"/>
-  <include file="$(find rpi_abb_irc5)/launch/abb_irc5_rapid_driver.launch" unless="$(arg disable_rapid_server)">
-    <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
-  </include> 
+  <group unless="$(arg disable_rapid_server)">
+    <include file="$(find rpi_abb_irc5)/launch/abb_irc5_rapid_driver.launch" if="$(eval (not arg('sim') or arg('use_robot_studio')))">
+      <arg name="abb_irc5_uri" value="$(arg abb_irc5_uri)"/>
+    </include>
+    <node name="fake_abb_irc5_rapid_driver" pkg="rpi_arm_composites_manufacturing_testbed" type="fake_abb_irc5_rapid_driver_ros" unless="$(eval (not arg('sim') or arg('use_robot_studio')))"/>
+  </group>
 
   <!--<node pkg="rosservice" type="rosservice" name="start_rapid" args="call -wait rapid/start True forever" unless="$(arg disable_rapid_server)"/>-->
 
