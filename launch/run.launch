@@ -61,7 +61,7 @@
   <node pkg="rostopic" type="rostopic" name="overhead_camera_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/overhead_camera_sim_camera_info.yaml -l /overhead_camera/camera_info sensor_msgs/CameraInfo" unless="$(arg sim)"/>
   <node pkg="rostopic" type="rostopic" name="gripper_camera_2_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/gripper_camera_2_sim_camera_info.yaml -l /gripper_camera_2/camera_info sensor_msgs/CameraInfo" unless="$(arg sim)"/>
   <arg name="disable_process_controller_server" default="false"/>
-  <node name="process_controller_server" pkg="rpi_arm_composites_manufacturing_process" type="process_controller_server" unless="$(arg disable_process_controller_server)">
+  <node name="process_controller_server" pkg="rpi_arm_composites_manufacturing_process" type="process_controller_server" unless="$(arg disable_process_controller_server)" output="screen">
     <param name="disable_ft" value="$(arg sim)"/>    
   </node>
   <arg name="disable_collision_monitor" default="false"/>
@@ -75,7 +75,7 @@
     <remap from="/tesseract_monitoring_contacts/tesseract_diff" to="tesseract_diff"/>
   </node>
   <arg name="disable_placement_controller_server" default="false"/>
-  <node name="placement_controller_server" pkg="pbvs_object_placement" type="placement_controller_server" unless="$(arg disable_placement_controller_server)">
+  <node name="placement_controller_server" pkg="pbvs_object_placement" type="placement_controller_server" unless="$(arg disable_placement_controller_server)" >
     <param name="camera_info" value="gripper_camera_2/camera_info" />
     <param name="image_topic" value="gripper_camera_2/image" />
     <param name="camera_trigger" value="gripper_camera_2/camera_trigger" />
