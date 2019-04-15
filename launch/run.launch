@@ -92,7 +92,7 @@
     <remap from="/tesseract_monitoring_contacts/tesseract_diff" to="tesseract_diff"/>
   </node>
   <arg name="disable_placement_controller_server" default="false"/>
-  <node name="placement_controller_server" pkg="pbvs_object_placement" type="placement_controller_server" unless="$(arg disable_placement_controller_server)">
+  <node name="placement_controller_server" pkg="pbvs_object_placement" type="placement_controller_server" unless="$(arg disable_placement_controller_server)" >
     <param name="camera_info" value="gripper_camera_2/camera_info" />
     <param name="image_topic" value="gripper_camera_2/image" />
     <param name="camera_trigger" value="gripper_camera_2/camera_trigger" />
