@@ -15,23 +15,17 @@
   <arg name="sim" default="false"/>
   <arg name="use_robot_studio" default="false"/>
   <arg name="robot_studio_plugin_url" default=""/>
-  
-  <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
-  <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
-  <param name="move_group/trajectory_execution/controller_connection_timeout" value="120"/>
-  
+    
   <arg name="disable_joy" default="false"/>
   <node respawn="true" pkg="joy" type="joy_node" name="joy" unless="$(arg disable_joy)">
     <param name="dev" type="string" value="$(arg joy_dev)" />
     <param name="deadzone" value="0.12" />
     <param name="autorepeat_rate" value="20" />
   </node>
-
-  <arg name="disable_moveit" default="false"/>
-  <include file="$(find rpi_arm_composites_manufacturing_testbed_moveit_config)/launch/moveit_planning_execution.launch" unless="$(arg disable_moveit)">
-    <arg name="start_interface" value="false"/>
-    <arg name="planning_pipeline" value="ompl"/>
-  </include>
+  
+  <include file="$(find rpi_arm_composites_manufacturing_testbed)/launch/load_arm_composites_manufacturing_testbed.launch"/>
+  <param name="robot_description_semantic" textfile="$(find rpi_arm_composites_manufacturing_testbed_moveit_config)/config/arm_composites_manufacturing_testbed.srdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <rosparam param="controller_joint_names" subst_value="True">["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]</rosparam>
 
@@ -101,6 +95,9 @@
   <node name="industrial_payload_manager" pkg="industrial_payload_manager" type="industrial_payload_manager" unless="$(arg disable_industrial_payload_manager)">        
   </node>
  
+  <arg name="disable_rviz" default="false"/>
+  <include file="$(find rpi_arm_composites_manufacturing_process)/launch/tesseract_rviz.launch" unless="$(arg disable_rviz)"/>
+
 
   <!-- TODO: launch GUI -->
   <arg name="disable_gui" default="false"/>
