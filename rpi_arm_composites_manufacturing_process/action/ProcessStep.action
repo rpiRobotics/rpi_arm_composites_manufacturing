@@ -1,0 +1,18 @@
+# Service to execute a process step. Node that this
+# is not a stable definition and will change
+# in the future
+
+#goal definition
+string command
+string target
+safe_kinematic_controller/ControllerMode mode
+---
+#result definition
+string state
+string payload
+string target
+string error_msg
+---
+#feedback
+
+

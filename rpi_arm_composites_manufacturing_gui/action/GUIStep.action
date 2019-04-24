@@ -1,0 +1,14 @@
+#Service to call gui action server
+#not a stable definition and may change in future
+
+#goal definition
+string command
+string target
+---
+#result definition
+string state
+
+string target
+---
+#feedback
+

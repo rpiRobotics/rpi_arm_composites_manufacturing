@@ -1,0 +1,82 @@
+{
+  "basic_info" :
+  {
+    "n_steps" : 15,
+    "manip" : "move_group",
+    "dt_lower_lim" : 1,
+    "dt_upper_lim" : 10,
+    "use_time" : true,
+    "start_fixed" : true
+  },
+  "init_info":
+  {
+    "type": "stationary"
+  },
+  "costs" :
+  [   
+    {
+      "type" : "joint_jerk",
+      "params" :
+      {
+        "targets" : [0],
+        "coeffs" : [5]
+      }
+    },    
+    {
+      "type" : "joint_vel",
+      "name" : "joint_vel_1",
+      "params" :
+      {
+        "targets" : [0],
+        "coeffs" : [500],
+        "first_step" : 0,
+        "last_step" : 15
+      }
+    },
+    {
+      "type" : "total_time",
+      "params" :
+      {
+        "coeff" : 5
+      }
+    },
+    {
+      "type" : "joint_vel",
+      "name" : "joint_vel_start",
+      "params" :
+      {
+        "targets" : [0,0,0,0,0,0],
+        "coeffs" : [10000],
+        "first_step" : 0,
+        "last_step" : 0
+        
+      }
+    },
+    {
+      "type" : "joint_vel",
+      "name" : "joint_vel_end",
+      "params" :
+      {
+        "targets" : [0,0,0,0,0,0],
+        "coeffs" : [10000],
+        "first_step" : 15,
+        "last_step" : 15
+        
+      }
+    }
+  ],
+  "constraints" :
+  [
+    {
+      "type" : "joint_vel",
+      "use_time" : true,
+      "params" :
+      {
+        "targets" : [0, 0, 0, 0, 0, 0],        
+        "lower_tols" : [-0.1, -0.2, -0.2, -0.4, -1, -1],
+        "upper_tols" : [0.1, 0.2, 0.2, 0.4, 1, 1]        
+      }
+    }
+  ]
+}
+

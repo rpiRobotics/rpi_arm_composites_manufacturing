@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+#Use the ProcessStepAction server to execute pick and place operation
+
+import rospy
+from rpi_arm_composites_manufacturing_process.msg import ProcessStepAction, ProcessStepGoal
+import actionlib
+import time
+
+def main():
+    rospy.init_node("pick_and_place_panel_client", anonymous=True)
+    
+    client=actionlib.SimpleActionClient('process_step', ProcessStepAction)
+    client.wait_for_server()
+    
+    def _execute_step(step, target=""):
+        g=ProcessStepGoal(step, target)
+        client.send_goal(g)
+        client.wait_for_result()
+        if client.get_state() != actionlib.GoalStatus.SUCCEEDED:
+            raise Exception("Process step failed")
+        print client.get_result()
+    
+    rospy.loginfo("Begin panel pick and place action client script")
+    _execute_step("plan_pickup_prepare", "leeward_mid_panel")
+    _execute_step("move_pickup_prepare", "leeward_mid_panel")
+    time.sleep(2)
+    _execute_step("plan_pickup_lower")
+    _execute_step("move_pickup_lower")
+    _execute_step("plan_pickup_grab_first_step")
+    _execute_step("move_pickup_grab_first_step")
+    _execute_step("plan_pickup_grab_second_step")
+    _execute_step("move_pickup_grab_second_step")    
+    _execute_step("plan_pickup_raise")
+    _execute_step("move_pickup_raise")
+    
+    _execute_step("plan_transport_payload","panel_nest_leeward_mid_panel_target")    
+    _execute_step("move_transport_payload","panel_nest_leeward_mid_panel_target")
+    _execute_step("place_lower")
+    _execute_step("place_set")
+    _execute_step("place_raise")
+    rospy.loginfo("End panel pick and place action client script")
+
+if __name__ == '__main__':
+    main()

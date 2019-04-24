@@ -71,7 +71,7 @@
   <node pkg="rostopic" type="rostopic" name="overhead_camera_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/overhead_camera_sim_camera_info.yaml -l /overhead_camera/camera_info sensor_msgs/CameraInfo"/>
   <node pkg="rostopic" type="rostopic" name="gripper_camera_2_info" args="pub -f $(find rpi_arm_composites_manufacturing_testbed)/config/gripper_camera_2_sim_camera_info.yaml -l /gripper_camera_2/camera_info sensor_msgs/CameraInfo"/>
   <arg name="disable_process_controller_server" default="false"/>
-  <node name="process_controller_server" pkg="rpi_arm_composites_manufacturing_process" type="process_controller_server" unless="$(arg disable_process_controller_server)">
+  <node name="process_controller_server" pkg="rpi_arm_composites_manufacturing_process" type="process_controller_server" unless="$(arg disable_process_controller_server)" output="screen">
 	<!-- Use simulated force sensor! -->
     <!-- <param name="disable_ft" value="$(arg sim)"/> -->
   </node>
@@ -79,7 +79,7 @@
   <node pkg="tesseract_monitoring" type="tesseract_monitoring_contacts_node" name="tesseract_monitoring_contacts" unless="$(arg disable_collision_monitor)">
     <param name="robot_description" type="string" value="robot_description"/>
     <param name="plugin" type="string" value="tesseract_collision/BulletDiscreteBVHManager"/>
-    <param name="contact_distance" value="0.5"/>
+    <param name="contact_distance" value="1"/>
     <param name="monitor_links" value=""/>
     <param name="contact_test_type" value="2"/>
     <param name="publish_environment" value="false"/>

@@ -1,0 +1,68 @@
+{
+  "basic_info" :
+  {
+    "n_steps" : 15,
+    "manip" : "move_group",
+    "dt_lower_lim" : 1,
+    "dt_upper_lim" : 100,
+    "start_fixed" : true,
+	"use_time" : true
+  },
+  "init_info":
+  {
+    "type": "stationary"
+  },
+  "costs" :
+  [
+    {
+      "type" : "collision",
+      "params" :
+      {
+        "coeffs" : [40],
+        "continuous": true,
+        "dist_pen" : [0.20]
+      }
+    },   
+    {
+      "type" : "joint_vel",
+      "name" : "joint_vel_1",
+      "params" :
+      {
+        "targets" : [0],
+        "coeffs" : [1000],
+        "first_step" : 0,
+        "last_step" : -1
+      }
+    },
+    {
+      "type" : "total_time",
+      "params" :
+      {
+        "coeff" : 5
+      }
+    }     
+  ],
+  "constraints" :
+  [
+    {
+      "type" : "joint_vel",
+      "use_time" : true,
+      "params" :
+      {
+        "targets" : [0, 0, 0, 0, 0, 0],        
+        "lower_tols" : [-0.2, -0.3, -0.3, -0.8, -1, -1],
+        "upper_tols" : [0.2, 0.3, 0.3, 0.8, 1, 1]        
+      }
+    },
+    {
+      "type" : "joint_acc",
+      "params" :
+      {
+        "targets" : [0, 0, 0, 0, 0, 0],        
+        "lower_tols" : [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
+        "upper_tols" : [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]        
+      }
+    }    
+  ]
+}
+
