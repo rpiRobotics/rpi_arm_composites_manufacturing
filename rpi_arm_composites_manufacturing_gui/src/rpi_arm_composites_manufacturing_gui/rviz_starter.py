@@ -36,7 +36,7 @@ class MyViz( QWidget ):
     ## to layouts.
     def __init__(self):
         QWidget.__init__(self)
-
+        """Script used to open RViz automatically from gui in certain steps, opens entirely separate instance of Rviz every time it is called. NOT RECOMMENDED FOR USE BECAUSE USER MUST MANUALLY CLOSE CREATED RVIZ WINDOWS"""
         ## rviz.VisualizationFrame is the main container widget of the
         ## regular RViz application, with menus, a toolbar, a status
         ## bar, and many docked subpanels.  In this example, we

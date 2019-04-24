@@ -249,7 +249,7 @@ class ExperimentGUI(Plugin):
             self.led_change(self.grippercameraled,False)
 
         self.mode=0
-        #self.rewound=False
+        
         self.count=0
         self.data_count=0
         self.force_torque_data=np.zeros((6,1))

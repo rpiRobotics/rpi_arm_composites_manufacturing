@@ -15,6 +15,13 @@ from PyQt5.QtGui import *
 
 class PanelSelectorWindow(QDialog):
     def __init__(self):
+        """
+        Panel selector popup code
+        used to generate a popup dialog with qlistwidget that is used to select which panel type is going to be pick and placed next
+        the dialog defaults to leeward_mid_panel, so if tip is desired the user MUST change it
+        additional changes could be made to automatically load in panel types based on defined lists in YAML or XACRO format but that is not implemented here
+
+        """
         super(PanelSelectorWindow,self).__init__()
         self.placement_chosen=None
         self.pickup_chosen=None
@@ -34,6 +41,9 @@ class PanelSelectorWindow(QDialog):
         #self.placement_nest_1=QGraphicsRectItem(100,60,100,100)
         #self.placement_nest_2=QGraphicsRectItem(100,-40,100,100)
         #self.pickup_nest_1=QGraphicsRectItem(-70,150,100,100)
+        """
+        establishes leeward_mid_panel as default panel selection
+        """
         self.panelList.item(0).setSelected(True)
         
         self.continue_button.pressed.connect(self.pass_values)
@@ -49,15 +59,19 @@ class PanelSelectorWindow(QDialog):
 #        self.placement_chosen='panel_nest_leeward_mid_panel_target'
 
     def get_panel_selected(self):
+        """simple panel type get function"""
         return self.panel
 
     def get_pickup_selected(self):
+        #deprecated
         return self.pickup_chosen
 
     def get_placement_selected(self):
+        #deprecated
         return self.placement_chosen
 
     def panel_selected(self):
+        """callback used to change panel type based on which option in qlistwidget is selected"""
         if(self.midlistentry.isSelected()):
             self.panel="leeward_mid_panel"
         if(self.tiplistentry.isSelected()):
@@ -97,5 +111,6 @@ class PanelSelectorWindow(QDialog):
                 self.pickupLocation.setText("Panel Pick Up Nest")
     '''
     def pass_values(self):
+        """callback used by confirm button to close dialog"""
         self.accept()
 

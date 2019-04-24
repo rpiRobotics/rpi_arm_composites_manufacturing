@@ -170,8 +170,10 @@ class GUI_Step_Executor(QObject):
       
     def _nextPlan(self,panel_type,planListIndex,panel_nest=None):
         """
-        the function initially called by the experiment_gui code
-
+        the function initially called by the experiment_gui code takes as argument:
+        panel_type is the panel type to be picked and placed
+        planListIndex is the command index to be executed
+        panel_nest is the panel nest to be placed into if placement is being called
 
         """
         rospy.loginfo("next plan planListIndex: "+str(planListIndex))
@@ -221,13 +223,17 @@ class GUI_Step_Executor(QObject):
             self._execute_steps(4,panel_type,0)
 
             
-
+        # reset rewound variable
         if(self.rewound):
             self.rewound=False
             
 
 
     def _previousPlan(self):
+        """
+        function called to perform the rewind function in the process controller
+        
+        """
         try:
             self._execute_steps(7)
             #g=ProcessStepGoal(self.execute_states[7][0], "", ControllerMode(self.controller_mode))
@@ -239,6 +245,9 @@ class GUI_Step_Executor(QObject):
 
 
     def _stopPlan(self):
+        """
+        function to cancel all current action server goals, sends the cancel signal to the process controller
+        """
         client=self.client
         #
         #self.controller_commander.set_controller_mode(self.controller_commander.MODE_HALT, 0,[], [])
@@ -251,6 +260,9 @@ class GUI_Step_Executor(QObject):
         self.recover_from_pause=True
 
     def _publish_state_message(self):
+        """
+        function to publish GUI state messages, no longer used
+        """
         s=ProcessState()
         s.state=str(self.execute_states[self.current_state])
         s.payload=""

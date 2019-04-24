@@ -15,6 +15,9 @@ from PyQt5.QtGui import *
 
 class PanelSelectorWindow(QDialog):
     def __init__(self):
+        """
+        Deprecated non-touch-screen friendly version of panel selector popup window. contains graphical interface allowing user to select different panel locations by clicking their representations in a display.
+        """
         super(PanelSelectorWindow,self).__init__()
         self.placement_chosen=None
         self.pickup_chosen=None

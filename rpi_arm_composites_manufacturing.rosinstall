@@ -1,30 +1,19 @@
-- git:
-    local-name: rpi_abb_irb6640_180_255_moveit_config
-    uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_moveit_config.git
 
-- git:
-    local-name: rpi_abb_irb6640_180_255_support
-    uri: git@gitlab.com:wason1/rpi_abb_irb6640_180_255_support.git
 
 - git:
     local-name: rpi_abb_irc5
     uri: git@github.com:rpiRobotics/rpi_abb_irc5.git
 
 - git:
-    local-name: rpi_arm_composites_manufacturing_abb_egm_controller
-    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_abb_egm_controller.git
+    local-name: safe_kinematic_controller
+    uri: git@github.com:rpiRobotics/safe_kinematic_controller.git
 
-- git:
-    local-name: rpi_arm_composites_manufacturing_process
-    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_process.git
+
 
 - git:
     local-name: rpi_arm_composites_manufacturing_testbed
     uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_testbed.git
 
-- git:
-    local-name: rpi_arm_composites_manufacturing_testbed_moveit_config
-    uri: git@gitlab.com:wason1/rpi_arm_composites_manufacturing_testbed_moveit_config.git
 
 - git:
     local-name: rpi_ati_net_ft
@@ -40,7 +29,9 @@
 
 - git:
     local-name: tesseract
-    uri: git@github.com:ros-industrial-consortium/tesseract.git
+    uri: git@github.com:johnwason/tesseract.git
+    version: tesseract_python
+    
 
 - git:
     local-name: trajopt_ros
@@ -50,9 +41,6 @@
     local-name: floating_transform_publisher
     uri: git@github.com:rpiRobotics/floating_transform_publisher.git
 
-- git:
-    local-name: rpi_arm_composites_manufacturing_gui
-    uri: git@github.com:rpiRobotics/rpi_arm_composites_manufacturing_gui.git
 
 - git:
     local-name: rpi_arm_composites_manufacturing
@@ -61,3 +49,7 @@
 - git:
     local-name: pyspin_wrapper
 	uri: git@github.com:wlawler45/Pyspin_wrapper.git
+
+- git:
+    local-name: pbvs_object_placement
+	uri: git@github.com:rpiRobotics/pbvs_object_placement.git
