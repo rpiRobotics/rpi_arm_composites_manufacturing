@@ -47,7 +47,7 @@ class GUI_Step_Executor(QObject):
     #Receives error messages from process controller action calls and signals gui to put up alert
     def _feedback_receive(self,status,result):
         """
-        emits signal when error is received from process controller
+        emits signal to qt thread when error is received from process controller
         
         """
         rospy.loginfo("Feedback_receive_function")
@@ -105,13 +105,26 @@ class GUI_Step_Executor(QObject):
             self.success_signal.emit()
 
     def _execute_steps(self,steps_index, target="",target_index=-1):
+        """
+        function called to send the first command to the process controller, it takes as arguments the following
+        steps_index is the index of the steps to execute according to the list self.execute_states
+        target is the panel or nest target to be sent to the process controller
+        target_index is the index of the command in which the target is to be sent as a parameter to the process controller
+        """
+
         
         def send_action(goal):
+            """a simple closure to send the action goal"""
             #self.client_handle=self.client.send_goal(goal,feedback_cb=self._feedback_receive)
             #self.client_handle=self.client.send_goal(goal,feedback_cb=self._feedback_receive,done_cb=self._next_command)
             self.client_handle=self.client.send_goal(goal,done_cb=self._next_command)
             #self.client.wait_for_result()
-            
+        
+        """because this function is also called if a motion is to be resumed after stopping a start_step value is used, normally zero, if recover_from_pause is true then it will resume the process
+           starting at the last planning step
+
+
+        """
         self.start_step=0
         self.current_state=steps_index
         self.target_index=target_index
@@ -156,7 +169,11 @@ class GUI_Step_Executor(QObject):
         
       
     def _nextPlan(self,panel_type,planListIndex,panel_nest=None):
+        """
+        the function initially called by the experiment_gui code
 
+
+        """
         rospy.loginfo("next plan planListIndex: "+str(planListIndex))
 
         #if self.recover_from_pause and planListIndex !=0:
