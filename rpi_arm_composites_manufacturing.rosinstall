@@ -48,8 +48,8 @@
 
 - git:
     local-name: pyspin_wrapper
-	uri: git@github.com:wlawler45/Pyspin_wrapper.git
+    uri: git@github.com:wlawler45/Pyspin_wrapper.git
 
 - git:
     local-name: pbvs_object_placement
-	uri: git@github.com:rpiRobotics/pbvs_object_placement.git
+    uri: git@github.com:rpiRobotics/pbvs_object_placement.git
