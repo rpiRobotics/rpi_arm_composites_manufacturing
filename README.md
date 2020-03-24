@@ -37,3 +37,6 @@ a.	Local launch file contains settings for your specific machine
 b.	Example contents for a Virtualbox computer: arm_composites_manufacturing_local.launch
 14.	Launch the simulation environment
 a.	roslaunch arm_composites_manufacturing_local.launch
+
+The video for the assembly process can be found at 
+https://confluence.cats.rpi.edu/pages/viewpage.action?pageId=18088076&preview=%2F18088076%2F18088092%2FPlacement+%28whole+process%29.MOV
